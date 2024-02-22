@@ -76,6 +76,12 @@ Pour créer un contrôleur nommé `MonControlleur` :
 symfony console make:controller MonControlleur
 ```
 
+Pour lister toute les routes de l'application :
+
+```bash
+php bin/console debug:router
+```
+
 ### Configuration de la base de données avec Doctrine
 
 1. **Installation de Doctrine :**
