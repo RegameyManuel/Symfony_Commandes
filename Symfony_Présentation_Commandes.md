@@ -193,7 +193,7 @@ Symfony fournit des commandes pour accélérer le développement :
 
 - Installation du bundle de vérification d'email
 
- de SymfonyCasts :
+ - de SymfonyCasts :
 
     ```bash
     composer require symfonycasts/verify-email-bundle
