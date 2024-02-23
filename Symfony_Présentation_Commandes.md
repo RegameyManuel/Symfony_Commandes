@@ -213,4 +213,8 @@ Pour vider le cache de l'application :
 symfony console cache:clear
 ```
 
+```bash
+php bin/console cache:clear
+```
+
 Ceci termine la présentation de base de Symfony et de la mise en place d'un projet web. Symfony est un outil puissant qui, grâce à sa flexibilité et à son vaste écosystème, permet de construire des applications web robustes et évolutives.
