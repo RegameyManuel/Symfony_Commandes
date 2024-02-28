@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Tutoriel &DiacriticalGrave;Logger&DiacriticalGrave; dans Symfony 6</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="tutoriel-logger-dans-symfony-6">Tutoriel <code>Logger</code> dans Symfony 6</h1>
+<p><em><strong>Exploration de l'installation, configuration, et utilisation d'un service de logging personnalisé</strong></em></p>
+<h3 id="1-installation-et-configuration">1. Installation et Configuration</h3>
+<p>Symfony utilise Monolog pour le logging, un gestionnaire de logs puissant qui permet une configuration et une personnalisation étendues. Dans Symfony, la configuration de Monolog se fait principalement via le fichier <code>config/packages/monolog.yaml</code>.</p>
+<h4 id="installation">Installation</h4>
+<p>Symfony Flex configure automatiquement Monolog lors de l'installation de Symfony. Si vous devez l'installer manuellement pour une raison quelconque, utilisez Composer :</p>
+<pre><code class="language-bash">composer require symfony/monolog-bundle
+</code></pre>
+<h4 id="configuration-de-base">Configuration de Base</h4>
+<p>Dans <code>config/packages/monolog.yaml</code>, vous pouvez définir différents canaux (channels), des niveaux de log, et des handlers. Un exemple simple :</p>
+<pre><code class="language-yaml"><span class="hljs-attr">monolog:</span>
+    <span class="hljs-attr">channels:</span> [<span class="hljs-string">&#x27;app&#x27;</span>]
+    <span class="hljs-attr">handlers:</span>
+        <span class="hljs-attr">main:</span>
+            <span class="hljs-attr">type:</span> <span class="hljs-string">stream</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">&quot;%kernel.logs_dir%/%kernel.environment%.log&quot;</span>
+            <span class="hljs-attr">level:</span> <span class="hljs-string">debug</span>
+            <span class="hljs-attr">channels:</span> [<span class="hljs-string">&quot;!event&quot;</span>]
+        <span class="hljs-attr">custom_channel:</span>
+            <span class="hljs-attr">type:</span> <span class="hljs-string">stream</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">&quot;%kernel.logs_dir%/custom_channel.log&quot;</span>
+            <span class="hljs-attr">level:</span> <span class="hljs-string">info</span>
+            <span class="hljs-attr">channels:</span> [<span class="hljs-string">&quot;app&quot;</span>]
+</code></pre>
+<h3 id="2-création-dun-service-de-logging-personnalisé">2. Création d'un Service de Logging Personnalisé</h3>
+<p>Bien que vous puissiez utiliser le service <code>logger</code> par défaut, la création d'un service personnalisé peut s'avérer utile pour des besoins spécifiques.</p>
+<h4 id="définition-du-service">Définition du Service</h4>
+<p>Dans <code>config/services.yaml</code>, définissez un service pour votre logger personnalisé :</p>
+<pre><code class="language-yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-attr">app.logger:</span>
+        <span class="hljs-attr">class:</span> <span class="hljs-string">Psr\Log\LoggerInterface</span>
+        <span class="hljs-attr">arguments:</span> [<span class="hljs-string">&#x27;@monolog.logger.app&#x27;</span>]
+</code></pre>
+<h3 id="3-utilisation-des-logs">3. Utilisation des Logs</h3>
+<p>Avec le service configuré, vous pouvez injecter <code>LoggerInterface</code> dans n'importe quel service, contrôleur ou autre composant de Symfony pour commencer à logger.</p>
+<h4 id="exemple-dinjection-dans-un-contrôleur">Exemple d'Injection dans un Contrôleur</h4>
+<pre><code class="language-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">App</span>\<span class="hljs-title class_">Controller</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Psr</span>\<span class="hljs-title">Log</span>\<span class="hljs-title">LoggerInterface</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Component</span>\<span class="hljs-title">HttpFoundation</span>\<span class="hljs-title">Response</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Bundle</span>\<span class="hljs-title">FrameworkBundle</span>\<span class="hljs-title">Controller</span>\<span class="hljs-title">AbstractController</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LogExampleController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractController</span>
+</span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-variable">$logger</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params">LoggerInterface <span class="hljs-variable">$logger</span></span>)
+    </span>{
+        <span class="hljs-comment">// Utilisez le service personnalisé si vous l&#x27;avez défini</span>
+        <span class="hljs-variable language_">$this</span>-&gt;logger = <span class="hljs-variable">$logger</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params"></span>): <span class="hljs-title">Response</span>
+    </span>{
+        <span class="hljs-variable language_">$this</span>-&gt;logger-&gt;<span class="hljs-title function_ invoke__">info</span>(<span class="hljs-string">&#x27;Page d\&#x27;accueil visitée.&#x27;</span>);
+
+        <span class="hljs-comment">// Votre logique de contrôleur ici</span>
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">render</span>(<span class="hljs-string">&#x27;default/index.html.twig&#x27;</span>);
+    }
+}
+</code></pre>
+<h3 id="4-niveaux-de-log">4. Niveaux de Log</h3>
+<p>Les niveaux de log sont essentiels pour comprendre et catégoriser la sévérité des messages enregistrés par votre application. Chaque niveau indique l'importance du message et peut aider à filtrer les logs lors de la recherche d'informations spécifiques. Voici une description détaillée de chaque niveau de log, suivie d'exemples d'utilisation dans le contexte de Symfony avec Monolog.</p>
+<ol>
+<li><strong>DEBUG</strong> : Informations détaillées, typiquement d'intérêt seulement lors du diagnostic de problèmes.</li>
+<li><strong>INFO</strong> : Messages d'information qui mettent en évidence le progrès de l'application dans son ensemble.</li>
+<li><strong>NOTICE</strong> : Événements normaux mais significatifs.</li>
+<li><strong>WARNING</strong> : Indique des événements potentiellement problématiques, des erreurs non critiques.</li>
+<li><strong>ERROR</strong> : Erreurs d'exécution qui ne nécessitent pas une action immédiate mais doivent être surveillées.</li>
+<li><strong>CRITICAL</strong> : Conditions critiques signalant des problèmes graves qui ont causé une défaillance plus ou moins importante de l'application.</li>
+<li><strong>ALERT</strong> : Doit être corrigé immédiatement, comme un site Web complet en panne.</li>
+<li><strong>EMERGENCY</strong> : Le système est inutilisable.</li>
+</ol>
+<h3 id="5-canaux">5. Canaux</h3>
+<p>Les canaux dans le système de logging, comme ceux utilisés par Monolog dans Symfony, servent à catégoriser les logs selon différentes parties ou aspects de votre application. Chaque canal peut être considéré comme un journal distinct, où vous pouvez enregistrer des messages spécifiques à un domaine de fonctionnalité, un module, ou un service de votre application. L'utilisation de canaux permet une organisation logique des logs, facilitant leur consultation, leur filtrage et leur analyse.</p>
+<h4 id="configuration-des-canaux">Configuration des Canaux</h4>
+<p>Dans Symfony, vous pouvez configurer des canaux spécifiques dans <code>config/packages/monolog.yaml</code>. Par exemple :</p>
+<pre><code class="language-yaml"><span class="hljs-attr">monolog:</span>
+    <span class="hljs-attr">channels:</span> [<span class="hljs-string">&#x27;deprecation&#x27;</span>, <span class="hljs-string">&#x27;security&#x27;</span>]
+    <span class="hljs-attr">handlers:</span>
+        <span class="hljs-attr">deprecation:</span>
+            <span class="hljs-attr">type:</span> <span class="hljs-string">stream</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">&quot;%kernel.logs_dir%/deprecation.log&quot;</span>
+            <span class="hljs-attr">level:</span> <span class="hljs-string">warning</span>
+            <span class="hljs-attr">channels:</span> [<span class="hljs-string">&quot;deprecation&quot;</span>]
+        <span class="hljs-attr">security:</span>
+            <span class="hljs-attr">type:</span> <span class="hljs-string">stream</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">&quot;%kernel.logs_dir%/security.log&quot;</span>
+            <span class="hljs-attr">level:</span> <span class="hljs-string">info</span>
+            <span class="hljs-attr">channels:</span> [<span class="hljs-string">&quot;security&quot;</span>]
+</code></pre>
+<p>Cette configuration crée deux canaux distincts : <code>deprecation</code> pour les logs de dépréciation et <code>security</code> pour les logs de sécurité. Chaque canal est configuré pour écrire dans son propre fichier de log.</p>
+<h4 id="utilisation-des-canaux-dans-le-code">Utilisation des Canaux dans le Code</h4>
+<p>Pour utiliser un canal spécifique dans votre code, injectez <code>LoggerInterface</code> en spécifiant le nom du canal. Par exemple, pour le canal <code>security</code> :</p>
+<pre><code class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Psr</span>\<span class="hljs-title">Log</span>\<span class="hljs-title">LoggerInterface</span>;
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params">LoggerInterface <span class="hljs-variable">$securityLogger</span></span>)
+</span>{
+    <span class="hljs-variable language_">$this</span>-&gt;securityLogger = <span class="hljs-variable">$securityLogger</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logSecurityIssue</span>(<span class="hljs-params"><span class="hljs-variable">$message</span></span>)
+</span>{
+    <span class="hljs-variable language_">$this</span>-&gt;securityLogger-&gt;<span class="hljs-title function_ invoke__">info</span>(<span class="hljs-variable">$message</span>);
+}
+</code></pre>
+<p>Dans Symfony, vous pouvez spécifier le canal en configurant le service :</p>
+<pre><code class="language-yaml"><span class="hljs-attr">services:</span>
+    <span class="hljs-string">App\Service\MyService:</span>
+        <span class="hljs-attr">arguments:</span>
+            <span class="hljs-string">$securityLogger:</span> <span class="hljs-string">&#x27;@monolog.logger.security&#x27;</span>
+</code></pre>
+<h3 id="6-environnements">6. Environnements</h3>
+<p>La gestion des logs peut varier considérablement entre les environnements de développement (<code>dev</code>), de test (<code>test</code>), et de production (<code>prod</code>). Adapter la configuration de logging à chaque environnement permet de s'assurer que les développeurs ont accès aux informations dont ils ont besoin pour le débogage, tout en évitant de surcharger les fichiers de log en production avec des informations inutiles.</p>
+<h4 id="configuration-par-environnement">Configuration par Environnement</h4>
+<p>Symfony permet de configurer Monolog différemment selon l'environnement en plaçant les fichiers de configuration spécifiques à chaque environnement dans le dossier <code>config/packages/{env}</code>. Par exemple, pour l'environnement de développement, vous pouvez augmenter le niveau de détail des logs :</p>
+<pre><code class="language-yaml"><span class="hljs-comment"># config/packages/dev/monolog.yaml</span>
+<span class="hljs-attr">monolog:</span>
+    <span class="hljs-attr">handlers:</span>
+        <span class="hljs-attr">main:</span>
+            <span class="hljs-attr">type:</span> <span class="hljs-string">stream</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">&quot;%kernel.logs_dir%/%kernel.environment%.log&quot;</span>
+            <span class="hljs-attr">level:</span> <span class="hljs-string">debug</span>
+</code></pre>
+<p>Et pour la production, limiter les logs aux niveaux plus critiques pour éviter de surcharger le fichier de log :</p>
+<pre><code class="language-yaml"><span class="hljs-comment"># config/packages/prod/monolog.yaml</span>
+<span class="hljs-attr">monolog:</span>
+    <span class="hljs-attr">handlers:</span>
+        <span class="hljs-attr">main:</span>
+            <span class="hljs-attr">type:</span> <span class="hljs-string">stream</span>
+            <span class="hljs-attr">path:</span> <span class="hljs-string">&quot;%kernel.logs_dir%/%kernel.environment%.log&quot;</span>
+            <span class="hljs-attr">level:</span> <span class="hljs-string">error</span>
+</code></pre>
+<h3 id="7-exemples-dutilisation-de-logs">7. Exemples d'Utilisation de Logs</h3>
+<h4 id="affichage-des-contenus-dobjet">Affichage des Contenus d'Objet</h4>
+<p>Lorsque vous souhaitez logger le contenu d'un objet pour le débogage, vous pouvez utiliser <code>print_r</code> ou <code>var_export</code> avec le niveau de log <code>DEBUG</code>. Cependant, Monolog et Symfony manipulent mieux les chaînes, donc il est conseillé de convertir l'objet en une chaîne en premier.</p>
+<pre><code class="language-php"><span class="hljs-comment">// Dans un contrôleur ou un service</span>
+<span class="hljs-variable language_">$this</span>-&gt;logger-&gt;<span class="hljs-title function_ invoke__">debug</span>(<span class="hljs-string">&#x27;Contenu de l\&#x27;objet:&#x27;</span>, [<span class="hljs-string">&#x27;object&#x27;</span> =&gt; <span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$object</span>, <span class="hljs-literal">true</span>)]);
+</code></pre>
+<p>Ou pour une sortie plus propre et potentiellement plus informative :</p>
+<pre><code class="language-php"><span class="hljs-variable language_">$this</span>-&gt;logger-&gt;<span class="hljs-title function_ invoke__">debug</span>(<span class="hljs-string">&#x27;Contenu de l\&#x27;objet:&#x27;</span>, [<span class="hljs-string">&#x27;object&#x27;</span> =&gt; <span class="hljs-title function_ invoke__">var_export</span>(<span class="hljs-variable">$object</span>, <span class="hljs-literal">true</span>)]);
+</code></pre>
+<h4 id="logging-des-actions-utilisateur">Logging des Actions Utilisateur</h4>
+<p>Pour enregistrer des actions utilisateur significatives, utilisez le niveau <code>INFO</code> ou <code>NOTICE</code> :</p>
+<pre><code class="language-php"><span class="hljs-variable language_">$this</span>-&gt;logger-&gt;<span class="hljs-title function_ invoke__">info</span>(<span class="hljs-string">&#x27;L\&#x27;utilisateur a créé un nouveau compte.&#x27;</span>, [<span class="hljs-string">&#x27;user_id&#x27;</span> =&gt; <span class="hljs-variable">$userId</span>]);
+</code></pre>
+<h4 id="erreurs-et-exceptions">Erreurs et Exceptions</h4>
+<p>Lors de la capture d'erreurs ou d'exceptions, utilisez le niveau approprié en fonction de la sévérité. Pour une erreur critique :</p>
+<pre><code class="language-php"><span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// Code qui peut générer une exception</span>
+} <span class="hljs-keyword">catch</span> (\<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>) {
+    <span class="hljs-variable language_">$this</span>-&gt;logger-&gt;<span class="hljs-title function_ invoke__">critical</span>(<span class="hljs-string">&#x27;Erreur critique rencontrée.&#x27;</span>, [<span class="hljs-string">&#x27;exception&#x27;</span> =&gt; <span class="hljs-variable">$e</span>-&gt;<span class="hljs-title function_ invoke__">getMessage</span>()]);
+}
+</code></pre>
+<h4 id="surveillance-des-performances">Surveillance des Performances</h4>
+<p>Pour surveiller les performances, comme le temps de réponse d'une API externe, utilisez le niveau <code>DEBUG</code> ou <code>INFO</code> :</p>
+<pre><code class="language-php"><span class="hljs-variable">$start</span> = <span class="hljs-title function_ invoke__">microtime</span>(<span class="hljs-literal">true</span>);
+<span class="hljs-comment">// Appel API externe</span>
+<span class="hljs-variable">$duration</span> = <span class="hljs-title function_ invoke__">microtime</span>(<span class="hljs-literal">true</span>) - <span class="hljs-variable">$start</span>;
+<span class="hljs-variable language_">$this</span>-&gt;logger-&gt;<span class="hljs-title function_ invoke__">info</span>(<span class="hljs-string">&#x27;Temps de réponse de l\&#x27;API externe.&#x27;</span>, [<span class="hljs-string">&#x27;duration&#x27;</span> =&gt; <span class="hljs-variable">$duration</span>]);
+</code></pre>
+<h3 id="8-conseils-pour-logger-efficacement">8. Conseils pour Logger Efficacement</h3>
+<ul>
+<li><strong>Contexte</strong> : Toujours fournir un contexte suffisant avec vos logs. Cela inclut des identifiants d'utilisateur, des identifiants de transaction, ou tout autre information pertinente qui peut aider à comprendre le log sans avoir besoin de deviner ou de chercher ailleurs.</li>
+<li><strong>Sécurité</strong> : Soyez conscient de ne pas logger des informations sensibles, telles que des mots de passe, des clés API, ou des informations personnellement identifiables (PII) sans les anonymiser ou les crypter.</li>
+<li><strong>Format</strong> : Utiliser un format de log cohérent à travers l'application facilite la lecture et l'analyse des fichiers de log.</li>
+<li><strong>Niveaux de Log</strong> : Utilisez différents niveaux de log (<code>debug</code>, <code>info</code>, <code>notice</code>, <code>warning</code>, <code>error</code>, <code>critical</code>, <code>alert</code>, <code>emergency</code>) pour catégoriser l'importance de l'information que vous loggez.</li>
+<li><strong>Canaux</strong> : Utilisez des canaux pour séparer les logs de différentes parties de votre application.</li>
+<li><strong>Environnements</strong> : Considérez la configuration des logs différemment selon l'environnement (<code>dev</code>, <code>test</code>, <code>prod</code>) pour éviter de surcharger les fichiers de log en production avec des informations de débogage.</li>
+</ul>
+<h4 id="best-practices">Best Practices</h4>
+<ul>
+<li><strong>Développement</strong> : Configurez les logs pour capturer une large gamme d'informations (de <code>debug</code> à <code>error</code>), aidant à identifier et résoudre les problèmes.</li>
+<li><strong>Production</strong> : Limitez les logs aux niveaux <code>error</code>, <code>critical</code>, <code>alert</code>, et <code>emergency</code> pour capturer uniquement les problèmes nécessitant une attention immédiate, réduisant ainsi la taille des fichiers de log et facilitant leur analyse.</li>
+<li><strong>Test</strong> : Adaptez les logs pour capturer les informations pertinentes pour le débogage des tests, souvent à un niveau de détail similaire à celui du développement.</li>
+</ul>
+<p>En ajustant la configuration des logs selon les canaux et les environnements, vous pouvez optimiser la gestion des logs pour répondre aux besoins spécifiques de chaque partie de votre application et de chaque stade du cycle de développement, améliorant ainsi l'efficacité du débogage et de la surveillance.</p>
+<p>... pensez à souffler, vous restaurer lors d'une petite pause et pour exploiter pleinement les fonctionnalités de log sous Symfony, je vous invite à consulter la ...</p>
+<p><a href="https://symfony.com/doc/current/logging.html">Documentation officielle sur la journalisation avec Symfony</a></p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

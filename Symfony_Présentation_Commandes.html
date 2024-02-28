@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Pr&eacute;sentation Symfony</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="présentation-symfony">Présentation Symfony</h1>
+<p>Symfony est un framework PHP pour le développement d'applications web. Il fournit une architecture, des composants et des outils pour que les développeurs puissent créer des applications web complexes plus rapidement et plus facilement. Symfony est conçu pour être flexible, permettant aux développeurs de choisir les bibliothèques et les modèles qu'ils souhaitent utiliser.</p>
+<h2 id="mise-en-place-dun-projet-symfony">Mise en place d'un projet Symfony</h2>
+<h3 id="vérification-des-prérequis">Vérification des prérequis</h3>
+<p>Avant de commencer, assurez-vous que votre environnement de développement satisfait aux exigences de Symfony :</p>
+<pre><code class="language-bash">symfony check:requirements
+</code></pre>
+<p>Cette commande vérifie que votre système a tous les outils nécessaires pour exécuter une application Symfony.</p>
+<h3 id="création-dun-projet">Création d'un projet</h3>
+<p>Pour créer un nouveau projet nommé <code>MonProjet</code> :</p>
+<pre><code class="language-bash">symfony new MonProjet --webapp
+</code></pre>
+<p>Cette commande crée un nouveau projet Symfony avec toutes les fonctionnalités web essentielles.</p>
+<h3 id="démarrage-du-serveur-de-développement">Démarrage du serveur de développement</h3>
+<p>Pour démarrer le serveur de développement :</p>
+<pre><code class="language-bash">symfony serve
+</code></pre>
+<p>Pour le démarrer en mode daemon (en arrière-plan) :</p>
+<pre><code class="language-bash">symfony serve -d
+</code></pre>
+<p>Le serveur est accessible à l'adresse <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a>.</p>
+<h3 id="gestion-du-serveur">Gestion du serveur</h3>
+<p>Pour arrêter les serveurs Symfony :</p>
+<pre><code class="language-bash">symfony server:stop
+</code></pre>
+<p>Pour vérifier le statut du serveur :</p>
+<pre><code class="language-bash">symfony server:status
+</code></pre>
+<h3 id="installation-de-composants-supplémentaires">Installation de composants supplémentaires</h3>
+<ul>
+<li>
+<p>Pour ajouter Twig, le moteur de template :</p>
+<pre><code class="language-bash">composer require symfony/twig-bundle
+</code></pre>
+</li>
+<li>
+<p>Pour installer le MakerBundle, qui aide à générer divers éléments comme des contrôleurs ou des entités :</p>
+<pre><code class="language-bash">composer require symfony/maker-bundle --dev
+</code></pre>
+</li>
+</ul>
+<h3 id="création-dun-contrôleur">Création d'un contrôleur</h3>
+<p>Pour créer un contrôleur nommé <code>MonControlleur</code> :</p>
+<pre><code class="language-bash">symfony console make:controller MonControlleur
+</code></pre>
+<p>Pour lister toute les routes de l'application :</p>
+<pre><code class="language-bash">php bin/console debug:router
+</code></pre>
+<h3 id="configuration-de-la-base-de-données-avec-doctrine">Configuration de la base de données avec Doctrine</h3>
+<ol>
+<li>
+<p><strong>Installation de Doctrine :</strong></p>
+<pre><code class="language-bash">composer require symfony/orm-pack:*
+</code></pre>
+</li>
+<li>
+<p><strong>Configuration de la base de données :</strong></p>
+<p>Modifiez le fichier <code>.env.local</code> pour configurer la connexion à la base de données :</p>
+<pre><code class="language-plaintext">DATABASE_URL=&quot;mysql://Utilisateur:MotDePasse@127.0.0.1:3306/village_green?serverVersion=mariadb-10.6.7&amp;charset=utf8mb4&quot;
+</code></pre>
+</li>
+<li>
+<p><strong>Gestion de la base de données :</strong></p>
+<ul>
+<li>
+<p>Pour supprimer la base de données :</p>
+<pre><code class="language-bash">php bin/console doctrine:database:drop --force
+</code></pre>
+</li>
+<li>
+<p>Pour créer la base de données :</p>
+<pre><code class="language-bash">php bin/console doctrine:database:create
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Travail avec les entités :</strong></p>
+<ul>
+<li>
+<p>Pour créer une entité <code>MonEntity</code> :</p>
+<pre><code class="language-bash">php bin/console make:entity MonEntity
+</code></pre>
+</li>
+<li>
+<p>Pour mettre à jour une entité :</p>
+<pre><code class="language-bash">php bin/console make:entity MonEntity --regenerate
+</code></pre>
+</li>
+<li>
+<p>Pour générer les tables nécessaires dans la base de données :</p>
+<pre><code class="language-bash">php bin/console doctrine:schema:update --force
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Migrations :</strong></p>
+<p>Pour initialiser une migration :</p>
+<pre><code class="language-bash">php bin/console make:migration
+</code></pre>
+<p>Pour appliquer les migrations :</p>
+<pre><code class="language-bash">php bin/console doctrine:migrations:migrate
+</code></pre>
+</li>
+<li>
+<p><strong>Utilisation de fixtures et Faker pour les données de test :</strong></p>
+<pre><code class="language-bash">composer require --dev orm-fixtures
+composer require fakerphp/faker
+</code></pre>
+<p>Pour charger les fixtures :</p>
+<pre><code class="language-bash">php bin/console doctrine:fixtures:load
+</code></pre>
+</li>
+</ol>
+<h3 id="génération-automatique-de-code">Génération automatique de code</h3>
+<p>Symfony fournit des commandes pour accélérer le développement :</p>
+<ul>
+<li>
+<p>Création de formulaires :</p>
+<pre><code class="language-bash">symfony console make:form
+</code></pre>
+</li>
+<li>
+<p>Création d'un contrôleur par défaut :</p>
+<pre><code class="language-bash">symfony console make:controller DefaultController
+</code></pre>
+</li>
+<li>
+<p>Génération d'un CRUD (Create, Read, Update, Delete) :</p>
+<pre><code class="language-bash">symfony console make:crud
+</code></pre>
+</li>
+<li>
+<p>Gestion des utilisateurs :</p>
+<pre><code class="language-bash">symfony console make:user
+</code></pre>
+<pre><code class="language-bash">symfony console make:auth
+</code></pre>
+</li>
+<li>
+<p>Installation du bundle de vérification d'email</p>
+</li>
+<li>
+<p>de SymfonyCasts :</p>
+<pre><code class="language-bash">composer require symfonycasts/verify-email-bundle
+</code></pre>
+</li>
+<li>
+<p>Création d'un formulaire d'inscription :</p>
+<pre><code class="language-bash">symfony console make:registration-form
+</code></pre>
+</li>
+</ul>
+<h3 id="nettoyage-du-cache">Nettoyage du cache</h3>
+<p>Pour vider le cache de l'application :</p>
+<pre><code class="language-bash">symfony console cache:clear
+</code></pre>
+<pre><code class="language-bash">php bin/console cache:clear
+</code></pre>
+<p>Ces deux commandes sont strictement identiques. Il restera à vider le cache de votre navigateur utilisé pour votre projet symfony.</p>
+<p>Ceci termine la présentation de base de Symfony et de la mise en place d'un projet web. Symfony est un outil puissant qui, grâce à sa flexibilité et à son vaste écosystème, permet de construire des applications web robustes et évolutives.</p>
+
+            
+            
+        </body>
+        </html>
