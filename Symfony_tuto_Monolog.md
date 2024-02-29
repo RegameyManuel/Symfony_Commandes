@@ -1,4 +1,4 @@
-# Tutoriel `Logger` dans Symfony 6
+# Tutoriel `Monolog` dans Symfony 6
 
 
 ***Exploration de l'installation, configuration, et utilisation d'un service de logging personnalisé***
