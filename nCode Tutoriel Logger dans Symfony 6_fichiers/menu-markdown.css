@@ -1,0 +1,59 @@
+		
+.markdown-body pre { background-color: #23241f;	} /* Monokai*/
+
+ /*".markdown-body pre { background-color: #000;	}";  Sunburst*/
+
+.menu-markdown { 
+	position: fixed; 
+	top: 0px; 
+	right: 0px; 
+	width: 37px; 
+	height: 33px; 
+	overflow: hidden; 
+	padding-top: 0px;
+    padding-bottom: 0px;
+    /*margin-top: 2px;*/
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+}
+
+.menu-markdown:hover { 
+	/*position: fixed; */
+	/*top: 0px; */
+	/*right: 0px; */
+	/*width: 35px; */
+	/*height: 31px; */
+	/*overflow: hidden; */
+	padding-top: 5px;
+    padding-bottom: 5px;
+    /*margin-top: 2px;*/
+    /*background-color: #fff;*/
+    /*background-clip: padding-box;*/
+    /*border: 1px solid rgba(0,0,0,0.15);*/
+    /*border-radius: 4px;*/
+    /*box-shadow: 0 3px 12px rgba(0,0,0,0.15);*/
+}
+
+.menu-markdown > div { 
+	/*background-color: #ddddff; */
+	padding: 4px 10px 4px 15px;
+
+    /*text-decoration: none;*/
+    
+}
+
+.menu-markdown > div:hover { 
+	background-color: #4078c0; 
+	color: #fff;
+}
+
+.menu-markdown  .titre { 
+	text-align: center;
+	font-weight: bold;
+}
+
+
+
