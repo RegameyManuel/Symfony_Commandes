@@ -40,6 +40,15 @@ symfony serve -d
 
 Le serveur est accessible à l'adresse http://127.0.0.1:8000.
 
+
+Le serveur web local de Symfony supporte HTTPS nativement. Cependant, pour établir une connexion sécurisée HTTPS, un certificat TLS (Transport Layer Security) est requis. Symfony simplifie la création et l'installation de ce certificat via une commande dédiée. Ce certificat est auto-signé et destiné uniquement à un usage de développement local.
+
+```bash
+symfony server:ca:install
+```
+
+Cette commande crée une Autorité de Certification (CA) locale, puis génère et installe un certificat TLS qui sera utilisé par le serveur web local de Symfony.
+
 ### Gestion du serveur
 
 Pour arrêter les serveurs Symfony :
