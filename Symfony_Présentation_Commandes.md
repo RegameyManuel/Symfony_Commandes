@@ -16,10 +16,10 @@ Cette commande vérifie que votre système a tous les outils nécessaires pour e
 
 ### Création d'un projet
 
-Pour créer un nouveau projet nommé `MonProjet` :
+Pour créer un nouveau projet à la version 6.4 nommé `MonProjet` :
 
 ```bash
-symfony new MonProjet --webapp
+symfony new MonProjet --version="6.4.*" --webapp
 ```
 
 Cette commande crée un nouveau projet Symfony avec toutes les fonctionnalités web essentielles.
