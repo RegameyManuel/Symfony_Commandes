@@ -84,7 +84,7 @@ symfony serve -d
 
 Par défaut, l’application est accessible à l’adresse suivante :
 
-```
+```bash
 http://127.0.0.1:8000
 ```
 

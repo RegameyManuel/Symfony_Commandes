@@ -48,7 +48,7 @@ symfony serve
 
 Dans Symfony, **toutes les requêtes passent par un seul fichier** :
 
-```
+```bash
 public/index.php
 ```
 
@@ -115,7 +115,7 @@ Prenons le temps de comprendre.
 
 Dans ton navigateur, ouvre :
 
-```
+```bash
 http://127.0.0.1:8000/
 ```
 
@@ -132,7 +132,7 @@ Si c’est le cas :
 
 Ouvre le fichier :
 
-```
+```bash
 templates/home/index.html.twig
 ```
 
@@ -199,7 +199,7 @@ public function about(): Response
 
 Crée le fichier :
 
-```
+```bash
 templates/home/about.html.twig
 ```
 
@@ -216,7 +216,7 @@ templates/home/about.html.twig
 
 Teste l’URL :
 
-```
+```bash
 http://127.0.0.1:8000/about
 ```
 

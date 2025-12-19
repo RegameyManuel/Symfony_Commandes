@@ -42,7 +42,7 @@ Le code de départ fourni est un mini blog procédural (liste, création, suppre
 
 ---
 
-## 1) Le problème du procédural en web
+## 1 Le problème du procédural en web
 
 ### 1.1 Le symptôme
 
@@ -69,7 +69,7 @@ Une petite modification entraîne des effets de bord.
 
 ---
 
-## 2) MVC : définition claire et utilisable
+## 2 MVC : définition claire et utilisable
 
 MVC signifie Model View Controller.
 
@@ -92,7 +92,7 @@ Important : MVC n’est pas une règle absolue, c’est une façon simple de ren
 
 ---
 
-## 3) Étape A - Version procédurale monopage
+## 3 Étape A - Version procédurale monopage
 
 Cette étape sert à montrer pourquoi on va changer.
 
@@ -139,7 +139,7 @@ Cela fonctionne, mais c’est difficile à maintenir.
 
 ---
 
-## 4) Étape B - Procédural multi fichiers
+## 4 Étape B - Procédural multi fichiers
 
 C’est souvent la première amélioration naturelle.
 
@@ -154,7 +154,7 @@ Limite : la duplication commence.
 
 ---
 
-## 5) Étape C - Front Controller (un seul point d’entrée)
+## 5 Étape C - Front Controller (un seul point d’entrée)
 
 ### 5.1 Pourquoi
 
@@ -175,7 +175,7 @@ On crée :
 
 Arborescence proposée :
 
-```
+```bash
 mini-blog-mvc/
   public/
     index.php
@@ -211,7 +211,7 @@ On n’est pas encore en POO. On prépare le terrain.
 
 ---
 
-## 6) Étape D - Les vues (templates)
+## 6 Étape D - Les vues (templates)
 
 ### 6.1 Pourquoi
 
@@ -262,7 +262,7 @@ L’idée est simple : la vue spécialisée s’insère dans le layout.
 
 ---
 
-## 7) Étape E - Le Model : Repository + entités simples
+## 7 Étape E - Le Model : Repository + entités simples
 
 ### 7.1 Pourquoi
 
@@ -324,7 +324,7 @@ Ce repository devient l’unique endroit où l’on touche au SQL pour les posts
 
 ---
 
-## 8) Étape F - Controllers en POO
+## 8 Étape F - Controllers en POO
 
 ### 8.1 Pourquoi
 
@@ -410,7 +410,7 @@ Tu vois la différence : le contrôleur orchestre, mais ne fait plus de SQL.
 
 ---
 
-## 9) Étape G - Service : logique métier
+## 9 Étape G - Service : logique métier
 
 ### 9.1 Pourquoi
 
@@ -451,7 +451,7 @@ Le contrôleur appelle le service, puis choisit la vue.
 
 ---
 
-## 10) Sécurité minimale et erreurs fréquentes
+## 10 Sécurité minimale et erreurs fréquentes
 
 ### 10.1 Échapper le HTML
 
@@ -477,7 +477,7 @@ Ne pas se contenter de `trim()` : en vrai on valide aussi longueur, format, etc.
 
 ---
 
-## 11) Pont vers Symfony
+## 11 Pont vers Symfony
 
 Ce que tu as construit correspond presque directement à Symfony :
 

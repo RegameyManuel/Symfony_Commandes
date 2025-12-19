@@ -38,8 +38,7 @@ Pour le démarrer en mode daemon (en arrière-plan) :
 symfony serve -d
 ```
 
-Le serveur est accessible à l'adresse http://127.0.0.1:8000.
-
+Le serveur est accessible à l'adresse [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 Le serveur web local de Symfony supporte HTTPS nativement. Cependant, pour établir une connexion sécurisée HTTPS, un certificat TLS (Transport Layer Security) est requis. Symfony simplifie la création et l'installation de ce certificat via une commande dédiée. Ce certificat est auto-signé et destiné uniquement à un usage de développement local.
 
@@ -200,9 +199,7 @@ Symfony fournit des commandes pour accélérer le développement :
     symfony console make:auth
     ```
 
-- Installation du bundle de vérification d'email
-
- - de SymfonyCasts :
+- Installation du bundle de vérification d'email de SymfonyCasts :
 
     ```bash
     composer require symfonycasts/verify-email-bundle
