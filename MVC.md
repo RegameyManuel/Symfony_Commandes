@@ -1,25 +1,9 @@
 # Cours MVC en PHP - Du procédural au MVC POO (mini blog)
 
-## Intention pédagogique
-
-Ce cours a un but très concret : **préparer l’entrée dans Symfony** en comprenant d’abord une architecture MVC "à la main".
-
-Symfony n’est pas un mystère. Il automatise et formalise des idées simples :
-
-* une requête HTTP arrive
-* une route choisit un contrôleur
-* le contrôleur orchestre la logique
-* la logique lit ou écrit des données via un modèle
-* une vue fabrique la réponse HTML
-
-Avant d’utiliser un framework, ce cours te fait construire ces briques progressivement, à partir d’un mini blog.
-
----
-
 ## Prérequis techniques
 
 * PHP 8.1+ (idéalement 8.2 ou 8.3)
-* Un serveur local (Apache, Nginx, ou `symfony serve` si tu l’as déjà)
+* Un serveur local (Apache, Nginx, ou `symfony serve`)
 * Une base MariaDB/MySQL (ou SQLite si tu préfères)
 
 Le code de départ fourni est un mini blog procédural (liste, création, suppression) avec PDO.
