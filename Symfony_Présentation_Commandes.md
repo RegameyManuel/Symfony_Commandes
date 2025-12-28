@@ -19,7 +19,7 @@ Cette commande vérifie que votre système a tous les outils nécessaires pour e
 Pour créer un nouveau projet à la version 6.4 nommé `MonProjet` :
 
 ```bash
-symfony new MonProjet --version="6.4.*" --webapp
+symfony new MonProjet --version="7.4.*" --webapp
 ```
 
 Cette commande crée un nouveau projet Symfony avec toutes les fonctionnalités web essentielles.
@@ -66,15 +66,15 @@ symfony server:status
 
 - Pour ajouter Twig, le moteur de template :
 
-    ```bash
-    composer require symfony/twig-bundle
-    ```
+```bash
+composer require symfony/twig-bundle
+```
 
 - Pour installer le MakerBundle, qui aide à générer divers éléments comme des contrôleurs ou des entités :
 
-    ```bash
-    composer require symfony/maker-bundle --dev
-    ```
+```bash
+composer require symfony/maker-bundle --dev
+```
 
 ### Création d'un contrôleur
 
@@ -94,122 +94,122 @@ php bin/console debug:router
 
 1. **Installation de Doctrine :**
 
-    ```bash
-    composer require symfony/orm-pack:*
-    ```
+```bash
+composer require symfony/orm-pack:*
+```
 
-2. **Configuration de la base de données :**
+2. **Configuration de la base de données**
 
-    Modifiez le fichier `.env.local` pour configurer la connexion à la base de données :
+Modifiez le fichier `.env.local` pour configurer la connexion à la base de données :
 
-    ```plaintext
-    DATABASE_URL="mysql://Utilisateur:MotDePasse@127.0.0.1:3306/village_green?serverVersion=mariadb-10.6.7&charset=utf8mb4"
-    ```
+```bash
+DATABASE_URL="mysql://Utilisateur:MotDePasse@127.0.0.1:3306/village_green?serverVersion=mariadb-10.6.7&charset=utf8mb4"
+```
 
 3. **Gestion de la base de données :**
 
-    - Pour supprimer la base de données :
+Pour supprimer la base de données :
 
-        ```bash
-        php bin/console doctrine:database:drop --force
-        ```
+```bash
+php bin/console doctrine:database:drop --force
+```
 
-    - Pour créer la base de données :
+Pour créer la base de données :
 
-        ```bash
-        php bin/console doctrine:database:create
-        ```
+```bash
+php bin/console doctrine:database:create
+```
 
 4. **Travail avec les entités :**
 
-    - Pour créer une entité `MonEntity` :
+Pour créer une entité `MonEntity` :
 
-        ```bash
-        php bin/console make:entity MonEntity
-        ```
+```bash
+php bin/console make:entity MonEntity
+```
 
-    - Pour mettre à jour une entité :
+Pour mettre à jour une entité :
 
-        ```bash
-        php bin/console make:entity MonEntity --regenerate
-        ```
+```bash
+php bin/console make:entity MonEntity --regenerate
+```
 
-    - Pour générer les tables nécessaires dans la base de données :
+Pour générer les tables nécessaires dans la base de données :
 
-        ```bash
-        php bin/console doctrine:schema:update --force
-        ```
+```bash
+php bin/console doctrine:schema:update --force
+```
 
 5. **Migrations :**
 
-    Pour initialiser une migration :
+Pour initialiser une migration :
 
-    ```bash
-    php bin/console make:migration
-    ```
+```bash
+php bin/console make:migration
+```
 
-    Pour appliquer les migrations :
+Pour appliquer les migrations :
 
-    ```bash
-    php bin/console doctrine:migrations:migrate
-    ```
+```bash
+php bin/console doctrine:migrations:migrate
+```
 
 6. **Utilisation de fixtures et Faker pour les données de test :**
 
-    ```bash
-    composer require --dev orm-fixtures
-    composer require fakerphp/faker
-    ```
+```bash
+composer require --dev orm-fixtures
+composer require fakerphp/faker
+```
 
-    Pour charger les fixtures :
+Pour charger les fixtures :
 
-    ```bash
-    php bin/console doctrine:fixtures:load
-    ```
+```bash
+php bin/console doctrine:fixtures:load
+```
 
 ### Génération automatique de code
 
 Symfony fournit des commandes pour accélérer le développement :
 
-- Création de formulaires :
+Création de formulaires :
 
-    ```bash
-    symfony console make:form
-    ```
+```bash
+symfony console make:form
+```
 
-- Création d'un contrôleur par défaut :
+Création d'un contrôleur par défaut :
 
-    ```bash
-    symfony console make:controller DefaultController
-    ```
+```bash
+symfony console make:controller DefaultController
+```
 
-- Génération d'un CRUD (Create, Read, Update, Delete) :
+Génération d'un CRUD (Create, Read, Update, Delete) :
 
-    ```bash
-    symfony console make:crud
-    ```
+```bash
+symfony console make:crud
+```
 
-- Gestion des utilisateurs :
+Gestion des utilisateurs :
 
-    ```bash
-    symfony console make:user
-    ```
+```bash
+symfony console make:user
+```
 
-    ```bash
-    symfony console make:auth
-    ```
+```bash
+symfony console make:auth
+```
 
-- Installation du bundle de vérification d'email de SymfonyCasts :
+Installation du bundle de vérification d'email de SymfonyCasts :
 
-    ```bash
-    composer require symfonycasts/verify-email-bundle
-    ```
+```bash
+composer require symfonycasts/verify-email-bundle
+```
 
-- Création d'un formulaire d'inscription :
+Création d'un formulaire d'inscription :
 
-    ```bash
-    symfony console make:registration-form
-    ```
+```bash
+symfony console make:registration-form
+```
 
 ### Nettoyage du cache
 

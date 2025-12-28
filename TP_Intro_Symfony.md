@@ -1,21 +1,19 @@
-# TP Symfony – Premiers pas rassurants
+# TP Symfony
 
-## Objectif pédagogique du TP
+## Objectif du TP
 
-Ce TP a pour but de **faire entrer progressivement dans Symfony**, sans stress ni magie obscure.
+Ce TP a pour but de **faire démarrer un projet Symfony**, sans stress.
 
-À la fin de ce TP, l’étudiant devra :
+À la fin de ce TP, nous serons en mesure de :
 
 * comprendre ce qu’est une route Symfony
 * comprendre le rôle d’un contrôleur
 * savoir afficher une page HTML avec Twig
-* faire le lien entre ce qu’il connaît déjà (PHP, POO) et Symfony
-
-Ce TP ne cherche **pas** la performance ni l’exhaustivité. Il cherche la **compréhension** et la **confiance**.
+* faire le lien entre le PHP + POO et Symfony
 
 ---
 
-## Ce que Symfony fait pour nous (et ce que nous faisons encore)
+## Ce que Symfony fera ici
 
 Dans ce premier TP :
 
@@ -29,13 +27,11 @@ Mais :
 * il n’y a pas encore de base de données
 * il n’y a pas encore de formulaires
 
-On avance par couches.
-
 ---
 
 ## Prérequis
 
-* Projet Symfony 6.4 déjà créé (`symfony new ... --webapp`)
+* Projet Symfony 7.4 déjà créé (`symfony new ... --webapp`)
 * Serveur Symfony démarré
 
 ```bash
@@ -52,9 +48,7 @@ Dans Symfony, **toutes les requêtes passent par un seul fichier** :
 public/index.php
 ```
 
-Tu n’as rien à modifier ici.
-
-À retenir :
+Il n'y a rien à modifier ici.
 
 > Symfony reçoit toutes les requêtes HTTP et décide quel contrôleur appeler.
 
@@ -101,25 +95,25 @@ Prenons le temps de comprendre.
 
 * `Response` :
 
-  * Symfony attend toujours une réponse HTTP
+  * Symfony renvoi toujours une réponse HTTP
 
 * `$this->render(...)` :
 
   * génère du HTML à partir d’un template Twig
 
-👉 Rien de magique : **une méthode appelée, une réponse retournée**.
+Rien de magique : **une méthode appelée, une réponse retournée**.
 
 ---
 
 ## Étape 4 – Tester la route
 
-Dans ton navigateur, ouvre :
+Dans notre navigateur, ouvrons :
 
 ```bash
 http://127.0.0.1:8000/
 ```
 
-Tu dois voir une page Symfony de base.
+Nous devons voir une page Symfony de base.
 
 Si c’est le cas :
 ✔ la route fonctionne
@@ -130,13 +124,13 @@ Si c’est le cas :
 
 ## Étape 5 – Modifier le template Twig
 
-Ouvre le fichier :
+Ouvrons le fichier :
 
 ```bash
 templates/home/index.html.twig
 ```
 
-Remplace son contenu par :
+Remplaceons son contenu par :
 
 ```twig
 {% extends 'base.html.twig' %}
@@ -149,15 +143,15 @@ Remplace son contenu par :
 {% endblock %}
 ```
 
-Recharge la page dans le navigateur.
+Rechargeons la page dans le navigateur.
 
-👉 Tu viens de générer du HTML **sans écrire de echo**, et sans PHP dans le template.
+Nous venons de générer du HTML **sans écrire de echo**, et sans PHP dans le template.
 
 ---
 
 ## Étape 6 – Passer des données du contrôleur vers la vue
 
-Modifie le contrôleur :
+Modifions le contrôleur :
 
 ```php
 #[Route('/', name: 'home')]
@@ -171,15 +165,15 @@ public function index(): Response
 }
 ```
 
-Modifie ensuite le template :
+Modifions ensuite le template :
 
 ```twig
 <p>{{ message }}</p>
 ```
 
-Recharge la page.
+Rechargeons la page.
 
-👉 Le contrôleur prépare les données, la vue les affiche.
+Le contrôleur prépare les données, la vue les affiche.
 
 ---
 
@@ -197,7 +191,7 @@ public function about(): Response
 }
 ```
 
-Crée le fichier :
+Créons le fichier :
 
 ```bash
 templates/home/about.html.twig
@@ -214,7 +208,7 @@ templates/home/about.html.twig
 {% endblock %}
 ```
 
-Teste l’URL :
+Testons l’URL :
 
 ```bash
 http://127.0.0.1:8000/about
@@ -228,7 +222,7 @@ http://127.0.0.1:8000/about
 php bin/console debug:router
 ```
 
-Observe :
+Observons :
 
 * le nom des routes
 * leurs chemins
@@ -248,36 +242,13 @@ Un contrôleur Symfony est :
 
 Symfony applique simplement la POO à grande échelle.
 
-Tu ne perds rien de ce que tu sais déjà.
-
 ---
 
-## Bilan du TP
+## Bilan
 
-À ce stade, tu sais :
+À ce stade, nous avons:
 
-* créer un contrôleur
-* définir des routes
-* afficher des pages avec Twig
-* passer des données du PHP vers le HTML
-
-Tu as posé **les fondations**.
-
----
-
-## Ce que nous verrons ensuite (sans le faire maintenant)
-
-* formulaires
-* base de données
-* entités Doctrine
-* sécurité
-
-Chaque chose en son temps.
-
----
-
-## Message important
-
-Si tu comprends ce TP, alors **Symfony est à ta portée**.
-
-La suite ne fera qu’ajouter des briques.
+* créé un contrôleur
+* défini des routes
+* affiché des pages avec Twig
+* passé des données du PHP vers le HTML
