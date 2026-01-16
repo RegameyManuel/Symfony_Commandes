@@ -16,7 +16,7 @@ Cette commande vérifie que votre système a tous les outils nécessaires pour e
 
 ### Création d'un projet
 
-Pour créer un nouveau projet à la version 6.4 nommé `MonProjet` :
+Pour créer un nouveau projet à la version 7.4 nommé `MonProjet` :
 
 ```bash
 symfony new MonProjet --version="7.4.*" --webapp
@@ -226,3 +226,4 @@ php bin/console cache:clear
 Ces deux commandes sont strictement identiques. Il restera à vider le cache de votre navigateur utilisé pour votre projet symfony.
 
 Ceci termine la présentation de base de Symfony et de la mise en place d'un projet web. Symfony est un outil puissant qui, grâce à sa flexibilité et à son vaste écosystème, permet de construire des applications web robustes et évolutives.
+
